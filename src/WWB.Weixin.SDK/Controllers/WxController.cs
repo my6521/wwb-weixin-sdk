@@ -8,6 +8,7 @@ using WWB.Weixin.SDK.ServerMessages;
 
 namespace WWB.Weixin.SDK.Controllers
 {
+    [ApiController]
     [AllowAnonymous]
     [Route("/wx/sdk")]
     public class WxController : ControllerBase

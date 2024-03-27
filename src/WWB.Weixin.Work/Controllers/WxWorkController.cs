@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,11 @@ using WWB.Weixin.Work.ServerMessages;
 
 namespace WWB.Weixin.Work.Controllers
 {
+    /// <summary>
+    ///
+    /// </summary>
     [ApiController]
+    [AllowAnonymous]
     [Route("/wx/work")]
     public class WxWorkController : ControllerBase
     {
@@ -30,7 +35,6 @@ namespace WWB.Weixin.Work.Controllers
         /// <param name="nonce"></param>
         /// <param name="echostr"></param>
         /// <param name="msg_signature"></param>
-        /// <param name="receiveid"></param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Get([Required] string timestamp, [Required] string nonce, [Required] string echostr, [Required] string msg_signature)
@@ -50,9 +54,7 @@ namespace WWB.Weixin.Work.Controllers
         /// </summary>
         /// <param name="timestamp"></param>
         /// <param name="nonce"></param>
-        /// <param name="echostr"></param>
         /// <param name="msg_signature"></param>
-        /// <param name="receiveid"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Post([Required] string timestamp, [Required] string nonce, [Required] string msg_signature)
