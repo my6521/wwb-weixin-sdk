@@ -30,8 +30,8 @@ jobs:
     - name: 发布生成包到github和nuget
       run: |
         nuget push ./src/WWB.Weixin.Utility/bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGETKEY }}
-        nuget push ./src/WWB.Weixin.Sdk/bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGETKEY }}
+        nuget push ./src/WWB.Weixin.SDK/bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGETKEY }}
         nuget push ./src/WWB.Weixin.Work/bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGETKEY }}
         nuget push ./src/WWB.Weixin.Utility/bin/Release/*.nupkg -Source github -SkipDuplicate
-        nuget push ./src/WWB.Weixin.Sdk/bin/Release/*.nupkg -Source github -SkipDuplicate
+        nuget push ./src/WWB.Weixin.SDK/bin/Release/*.nupkg -Source github -SkipDuplicate
         nuget push ./src/WWB.Weixin.Work/bin/Release/*.nupkg -Source github -SkipDuplicate
