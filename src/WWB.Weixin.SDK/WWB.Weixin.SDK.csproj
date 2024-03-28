@@ -8,7 +8,7 @@
 		<Authors>my6521</Authors>
 		<Description>微信开发SDK</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/my6521/WWB.Weixin.SDK</RepositoryUrl>
+		<RepositoryUrl>https://github.com/my6521/wwb-weixin-sdk</RepositoryUrl>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageVersion>1.0.0</PackageVersion>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
