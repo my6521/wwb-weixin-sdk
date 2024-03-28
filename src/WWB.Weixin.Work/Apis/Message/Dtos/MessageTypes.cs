@@ -6,9 +6,14 @@ namespace WWB.Weixin.Work.Apis.Message.Dtos
 {
     public enum MessageTypes
     {
-        /// <summary>
-        /// 文本为text
-        /// </summary>
         text,
+        image,
+        voice,
+        video,
+        file,
+        textcard,
+        mpnews,
+        markdown,
+        miniprogram_notice
     }
 }

@@ -27,7 +27,7 @@ namespace WWB.Weixin.Work.Apis.Message.Dtos
         public MessageTypes msgtype { get; set; }
 
         [JsonProperty("agentid")]
-        public int agentid { get; set; }
+        public int? agentid { get; set; }
 
         [JsonProperty("enable_duplicate_check")]
         public int enable_duplicate_check { get; set; } = 0;
