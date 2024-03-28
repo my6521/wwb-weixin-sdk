@@ -22,7 +22,7 @@ namespace WWB.Weixin.Samples.Work.Controllers
         [HttpGet]
         public async Task<IActionResult> DepartmentList(string corpId, string corpSecret)
         {
-            var token = await _tokenManager.GetToken(corpId, corpSecret);
+            var token = await _tokenManager.GetAccessToken(corpId, corpSecret);
             var list = await _contactApi.GetDepartmentList(token);
 
             return new JsonResult(list);

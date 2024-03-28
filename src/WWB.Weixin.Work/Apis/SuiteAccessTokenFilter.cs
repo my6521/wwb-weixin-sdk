@@ -13,7 +13,7 @@ namespace WWB.Weixin.Work.Apis
         public override async Task OnRequestAsync(ApiRequestContext context)
         {
             ITokenManager tokenManager = context.HttpContext.ServiceProvider.GetRequiredService<ITokenManager>();
-            string accessToken = await tokenManager.GetSuiteToken();
+            string accessToken = await tokenManager.GetSuiteAccessToken();
             context.HttpContext.RequestMessage.AddUrlQuery("suite_access_token", accessToken);
         }
 

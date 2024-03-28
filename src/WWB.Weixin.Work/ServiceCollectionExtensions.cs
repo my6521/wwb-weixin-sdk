@@ -69,21 +69,21 @@ namespace WWB.Weixin.Work
                     throw new WxWorkException("企业微信未配置！");
                 }
             }
-            if (funcs.GetProviderToken == null)
+            if (funcs.GetProviderAccessToken == null)
             {
-                funcs.GetProviderToken = (corpId) => cache.GetString($"WX::WORK::{corpId}");
+                funcs.GetProviderAccessToken = (corpId) => cache.GetString($"WX::WORK::{corpId}");
             }
-            if (funcs.GetSuiteToken == null)
+            if (funcs.GetSuiteAccessToken == null)
             {
-                funcs.GetSuiteToken = (suiteId) => cache.GetString($"WX::WORK::{suiteId}");
+                funcs.GetSuiteAccessToken = (suiteId) => cache.GetString($"WX::WORK::{suiteId}");
             }
             if (funcs.GetAccessToken == null)
             {
                 funcs.GetAccessToken = (corpId, corpSecret) => cache.GetString($"WX::WORK::{corpId}#{corpSecret}");
             }
-            if (funcs.CacheProviderToken == null)
+            if (funcs.CacheProviderAccessToken == null)
             {
-                funcs.CacheProviderToken = (corpId, token) =>
+                funcs.CacheProviderAccessToken = (corpId, token) =>
                 {
                     cache.SetString($"WX::WORK::{corpId}", token, new DistributedCacheEntryOptions()
                     {
@@ -91,9 +91,9 @@ namespace WWB.Weixin.Work
                     });
                 };
             }
-            if (funcs.CacheSuiteToken == null)
+            if (funcs.CacheSuiteAccessToken == null)
             {
-                funcs.CacheSuiteToken = (suiteId, token) =>
+                funcs.CacheSuiteAccessToken = (suiteId, token) =>
                 {
                     cache.SetString($"WX::WORK::{suiteId}", token, new DistributedCacheEntryOptions()
                     {

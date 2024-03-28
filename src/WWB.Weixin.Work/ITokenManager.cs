@@ -14,13 +14,13 @@ namespace WWB.Weixin.Work
         /// 获取服务商凭据
         /// </summary>
         /// <returns></returns>
-        Task<string> GetProviderToken();
+        Task<string> GetProviderAccessToken();
 
         /// <summary>
         /// 获取应用凭据
         /// </summary>
         /// <returns></returns>
-        Task<string> GetSuiteToken();
+        Task<string> GetSuiteAccessToken();
 
         /// <summary>
         /// 获取企业授权凭据
@@ -28,6 +28,6 @@ namespace WWB.Weixin.Work
         /// <param name="corpId"></param>
         /// <param name="corpsecret"></param>
         /// <returns></returns>
-        Task<string> GetToken(string corpId, string corpsecret);
+        Task<string> GetAccessToken(string corpId, string corpsecret);
     }
 }

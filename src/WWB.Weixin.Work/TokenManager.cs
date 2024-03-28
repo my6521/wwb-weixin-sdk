@@ -34,10 +34,10 @@ namespace WWB.Weixin.Work
         /// 获取服务商凭据
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetProviderToken()
+        public async Task<string> GetProviderAccessToken()
         {
             var options = _wxWorkFuncs?.GetWxWorkOptions();
-            var token = _wxWorkFuncs?.GetProviderToken(options.CorpId);
+            var token = _wxWorkFuncs?.GetProviderAccessToken(options.CorpId);
             if (string.IsNullOrEmpty(token))
             {
                 IServiceApi serviceApi = _serviceProvider.GetService<IServiceApi>();
@@ -46,7 +46,7 @@ namespace WWB.Weixin.Work
                     Corpid = options.CorpId,
                     ProviderSecret = options.ProviderSecret
                 });
-                _wxWorkFuncs?.CacheProviderToken(options.CorpId, result.ProviderAccessToken);
+                _wxWorkFuncs?.CacheProviderAccessToken(options.CorpId, result.ProviderAccessToken);
                 return result.ProviderAccessToken;
             }
 
@@ -58,14 +58,14 @@ namespace WWB.Weixin.Work
         /// </summary>
         /// <returns></returns>
         /// <exception cref="WxWorkException"></exception>
-        public async Task<string> GetSuiteToken()
+        public async Task<string> GetSuiteAccessToken()
         {
             var options = _wxWorkFuncs?.GetWxWorkOptions();
             var ticket = await _wxWorkFuncs?.GetSuiteTicket(options.SuiteId);
             if (string.IsNullOrWhiteSpace(ticket))
                 throw new WxWorkException($"获取代开发应用模板access_token异常！ suite_ticket is empty!");
 
-            var token = _wxWorkFuncs?.GetSuiteToken(options.SuiteId);
+            var token = _wxWorkFuncs?.GetSuiteAccessToken(options.SuiteId);
             if (string.IsNullOrEmpty(token))
             {
                 IServiceApi serviceApi = _serviceProvider.GetService<IServiceApi>();
@@ -75,7 +75,7 @@ namespace WWB.Weixin.Work
                     SuiteSecret = options.SuiteSecret,
                     SuiteTicket = ticket
                 });
-                _wxWorkFuncs?.CacheSuiteToken(options.SuiteId, result.SuiteAccessToken);
+                _wxWorkFuncs?.CacheSuiteAccessToken(options.SuiteId, result.SuiteAccessToken);
                 return result.SuiteAccessToken;
             }
 
@@ -89,7 +89,7 @@ namespace WWB.Weixin.Work
         /// <param name="corpsecret"></param>
         /// <returns></returns>
         /// <exception cref="WxWorkException"></exception>
-        public async Task<string> GetToken(string corpId, string corpsecret)
+        public async Task<string> GetAccessToken(string corpId, string corpsecret)
         {
             var options = _wxWorkFuncs?.GetWxWorkOptions();
             var token = _wxWorkFuncs?.GetAccessToken(corpId, corpsecret);
