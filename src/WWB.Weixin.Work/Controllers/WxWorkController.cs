@@ -22,6 +22,11 @@ namespace WWB.Weixin.Work.Controllers
         private readonly ILogger<WxWorkController> _logger;
         private readonly ServerMessageHandler _serverMessageHandler;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="serverMessageHandler"></param>
         public WxWorkController(ILogger<WxWorkController> logger, ServerMessageHandler serverMessageHandler)
         {
             _logger = logger;
