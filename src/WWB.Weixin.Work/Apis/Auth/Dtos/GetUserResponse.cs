@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WWB.Weixin.Work.Apis.Auth.Dtos
 {
-    public class GetUserResponse : BaseResponse
+    public class GetUserResponse : ApiResultBase
     {
         [JsonProperty("userid")]
         public string UserId { get; set; }

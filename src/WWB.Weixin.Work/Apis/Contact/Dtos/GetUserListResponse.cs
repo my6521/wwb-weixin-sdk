@@ -8,7 +8,7 @@ using WWB.Weixin.Work.Models;
 
 namespace WWB.Weixin.Work.Apis.Contact.Dtos
 {
-    public class GetUserListResponse : BaseResponse
+    public class GetUserListResponse : ApiResultBase
     {
         [JsonProperty("userlist")]
         public List<UserInfo> userlist { get; set; }

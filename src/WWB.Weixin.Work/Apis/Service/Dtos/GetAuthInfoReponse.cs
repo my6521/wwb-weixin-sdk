@@ -8,7 +8,7 @@ using WWB.Weixin.Work.Models;
 
 namespace WWB.Weixin.Work.Apis.Service.Dtos
 {
-    public class GetAuthInfoReponse : BaseResponse
+    public class GetAuthInfoReponse : ApiResultBase
     {
         [JsonProperty("auth_corp_info")]
         public AuthCorpInfo AuthCorpInfo { get; set; }

@@ -2,7 +2,7 @@
 
 namespace WWB.Weixin.Work.Apis.Contact.Dtos
 {
-    public class GetUserInfoResponse : BaseResponse
+    public class GetUserInfoResponse : ApiResultBase
     {
         public string userid { get; set; }
         public string name { get; set; }

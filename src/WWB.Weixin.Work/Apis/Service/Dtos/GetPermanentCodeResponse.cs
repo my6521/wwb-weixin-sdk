@@ -8,7 +8,7 @@ using WWB.Weixin.Work.Models;
 
 namespace WWB.Weixin.Work.Apis.Service.Dtos
 {
-    public class GetPermanentCodeResponse : BaseResponse
+    public class GetPermanentCodeResponse : ApiResultBase
     {
         /// <summary>
         /// 企业微信永久授权码,最长为512字节

@@ -9,19 +9,19 @@ namespace WWB.Weixin.SDK.Apis
     public class ApiResultBase
     {
         /// <summary>
-        ///     返回码
+        ///  返回码
         /// </summary>
         [JsonProperty("errcode")]
         public virtual ReturnCodes ReturnCode { get; set; }
 
         /// <summary>
-        ///     错误消息
+        ///  错误消息
         /// </summary>
         [JsonProperty("errmsg")]
         public virtual string Message { get; set; }
 
         /// <summary>
-        ///     是否为成功返回
+        /// 是否为成功返回
         /// </summary>
         /// <returns></returns>
         public virtual bool IsSuccess()

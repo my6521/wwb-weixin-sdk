@@ -14,6 +14,6 @@ namespace WWB.Weixin.Work.Apis.Message
         Task<SendMessageResponse> Send([PathQuery] string access_token, [JsonNetContent] SendMessageBase request);
 
         [HttpPost("/cgi-bin/message/recall")]
-        Task<BaseResponse> Recall([PathQuery] string access_token, [JsonNetContent] RecallMessageRequest request);
+        Task<ApiResultBase> Recall([PathQuery] string access_token, [JsonNetContent] RecallMessageRequest request);
     }
 }

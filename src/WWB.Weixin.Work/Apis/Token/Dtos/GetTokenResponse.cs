@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WWB.Weixin.Work.Apis.Token.Dtos
 {
-    public class GetTokenResponse : BaseResponse
+    public class GetTokenResponse : ApiResultBase
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }

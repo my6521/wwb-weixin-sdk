@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WWB.Weixin.Work.Apis
 {
-    public class BaseResponse
+    public class ApiResultBase
     {
         [JsonProperty("errcode")]
         public int ErrCode { get; set; }
@@ -17,7 +12,7 @@ namespace WWB.Weixin.Work.Apis
 
         public bool IsSuccess()
         {
-            return  ErrCode == 0;
+            return ErrCode == 0;
         }
     }
 }

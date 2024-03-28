@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WWB.Weixin.Work.Apis.Auth.Dtos
 {
-    public class GetUserDetailResponse : BaseResponse
+    public class GetUserDetailResponse : ApiResultBase
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WWB.Weixin.Work.Apis.Service.Dtos
 {
-    public class GetCustomizedAuthUrlResponse : BaseResponse
+    public class GetCustomizedAuthUrlResponse : ApiResultBase
     {
         [JsonProperty("qrcode_url")]
         public string QrcodeUrl { get; set; }

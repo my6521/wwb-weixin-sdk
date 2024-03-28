@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WWB.Weixin.Work.Apis.Message.Dtos
 {
-    public class SendMessageResponse : BaseResponse
+    public class SendMessageResponse : ApiResultBase
     {
         [JsonProperty("msgid")]
         public string msgid { get; set; }
