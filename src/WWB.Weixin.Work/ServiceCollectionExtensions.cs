@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System;
-using WWB.Weixin.Work;
 using WWB.Weixin.Work.Apis.Auth;
 using WWB.Weixin.Work.Apis.Contact;
 using WWB.Weixin.Work.Apis.Message;
@@ -12,7 +11,7 @@ using WWB.Weixin.Work.Apis.Service;
 using WWB.Weixin.Work.Apis.Token;
 using WWB.Weixin.Work.ServerMessages;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace WWB.Weixin.Work
 {
     /// <summary>
     ///
