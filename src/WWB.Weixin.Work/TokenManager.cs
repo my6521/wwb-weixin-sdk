@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,87 +7,101 @@ using System.Threading.Tasks;
 using WWB.Weixin.Work.Apis.Service;
 using WWB.Weixin.Work.Apis.Service.Dtos;
 using WWB.Weixin.Work.Apis.Token;
-using WWB.Weixin.Work.Extensions;
 using WWB.Weixin.Work.Models;
 
 namespace WWB.Weixin.Work
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class TokenManager : ITokenManager
     {
-        private readonly WxWorkOptions _options;
-        private readonly WxWorkFuncs _weixinWorkFuncs;
-        private readonly IDistributedCache _cache;
-        private readonly IServiceApi _serviceApi;
+        private readonly WxWorkFuncs _wxWorkFuncs;
+        private readonly IServiceProvider _serviceProvider;
 
-        private readonly ITokenApi _tokenApi;
-
-        public TokenManager(WxWorkFuncs weixinWorkFuncs, IDistributedCache cache, IServiceApi serviceApi, ITokenApi tokenApi)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="wxWorkFuncs"></param>
+        /// <param name="serviceProvider"></param>
+        public TokenManager(WxWorkFuncs wxWorkFuncs, IServiceProvider serviceProvider)
         {
-            _weixinWorkFuncs = weixinWorkFuncs;
-            _options = weixinWorkFuncs.GetWxWorkOptions();
-            _serviceApi = serviceApi;
-            _cache = cache;
-            _tokenApi = tokenApi;
+            _wxWorkFuncs = wxWorkFuncs;
+            _serviceProvider = serviceProvider;
         }
 
+        /// <summary>
+        /// 获取服务商凭据
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetProviderToken()
         {
-            var cacheKey = $"TOKEN_{_options.CorpId}@{_options.ProviderSecret}";
-            return await _cache.GetToken(cacheKey, async () =>
+            var options = _wxWorkFuncs?.GetWxWorkOptions();
+            var token = _wxWorkFuncs?.GetProviderToken(options.CorpId);
+            if (string.IsNullOrEmpty(token))
             {
-                var result = await _serviceApi.GetProviderToken(new GetProviderTokenRequest
+                IServiceApi serviceApi = _serviceProvider.GetService<IServiceApi>();
+                var result = await serviceApi.GetProviderToken(new GetProviderTokenRequest
                 {
-                    Corpid = _options.CorpId,
-                    ProviderSecret = _options.ProviderSecret
+                    Corpid = options.CorpId,
+                    ProviderSecret = options.ProviderSecret
                 });
+                _wxWorkFuncs?.CacheProviderToken(options.CorpId, result.ProviderAccessToken);
+                return result.ProviderAccessToken;
+            }
 
-                if (!result.IsSuccess())
-                {
-                    throw new WxWorkException($"获取服务商access_token失败！ errcode={result.ErrCode} errmsg={result.ErrMsg}");
-                }
-
-                return new TokenResult(result.ProviderAccessToken, result.ExpiresIn);
-            });
+            return token;
         }
 
+        /// <summary>
+        /// 获取应用凭据
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="WxWorkException"></exception>
         public async Task<string> GetSuiteToken()
         {
-            var ticket = await _weixinWorkFuncs.GetSuiteTicket(_options.SuiteId);
+            var options = _wxWorkFuncs?.GetWxWorkOptions();
+            var ticket = await _wxWorkFuncs?.GetSuiteTicket(options.SuiteId);
             if (string.IsNullOrWhiteSpace(ticket))
-            {
                 throw new WxWorkException($"获取代开发应用模板access_token异常！ suite_ticket is empty!");
-            }
-            var cacheKey = $"TOKEN_{_options.SuiteId}@{_options.SuiteSecret}";
-            return await _cache.GetToken(cacheKey, async () =>
+
+            var token = _wxWorkFuncs?.GetSuiteToken(options.SuiteId);
+            if (string.IsNullOrEmpty(token))
             {
-                var result = await _serviceApi.GetSuiteToken(new GetSuiteTokenRequest
+                IServiceApi serviceApi = _serviceProvider.GetService<IServiceApi>();
+                var result = await serviceApi.GetSuiteToken(new GetSuiteTokenRequest
                 {
-                    SuiteId = _options.SuiteId,
-                    SuiteSecret = _options.SuiteSecret,
+                    SuiteId = options.SuiteId,
+                    SuiteSecret = options.SuiteSecret,
                     SuiteTicket = ticket
                 });
-                if (!result.IsSuccess())
-                {
-                    throw new WxWorkException($"获取代开发应用模板access_token异常！ errcode={result.ErrCode} errmsg={result.ErrMsg}");
-                }
+                _wxWorkFuncs?.CacheSuiteToken(options.SuiteId, result.SuiteAccessToken);
+                return result.SuiteAccessToken;
+            }
 
-                return new TokenResult(result.SuiteAccessToken, result.ExpiresIn);
-            });
+            return token;
         }
 
+        /// <summary>
+        /// 获取企业应用凭据
+        /// </summary>
+        /// <param name="corpId"></param>
+        /// <param name="corpsecret"></param>
+        /// <returns></returns>
+        /// <exception cref="WxWorkException"></exception>
         public async Task<string> GetToken(string corpId, string corpsecret)
         {
-            var cacheKey = $"TOKEN_{corpId}@{corpsecret}";
-            return await _cache.GetToken(cacheKey, async () =>
+            var options = _wxWorkFuncs?.GetWxWorkOptions();
+            var token = _wxWorkFuncs?.GetAccessToken(corpId, corpsecret);
+            if (string.IsNullOrWhiteSpace(token))
             {
-                var result = await _tokenApi.GetToken(corpId, corpsecret);
-                if (!result.IsSuccess())
-                {
-                    throw new WxWorkException($"获取代开发授权应用access_token异常！ errcode={result.ErrCode} errmsg={result.ErrMsg}");
-                }
+                ITokenApi tokenApi = _serviceProvider.GetService<ITokenApi>();
+                var result = await tokenApi.GetToken(corpId, corpsecret);
+                _wxWorkFuncs?.CacheAccessToken(corpId, corpsecret, result.AccessToken);
+                return result.AccessToken;
+            }
 
-                return new TokenResult(result.AccessToken, result.ExpiresIn);
-            });
+            return token;
         }
     }
 }

@@ -69,9 +69,9 @@ namespace WWB.Weixin.SDK
                 {
                     funcs.GetWeChatOptions = () =>
                     {
-                        var option = new WxPublicAccountOption();
-                        wechatConfig.Bind(option);
-                        return option;
+                        var options = new WxPublicAccountOption();
+                        wechatConfig.Bind(options);
+                        return options;
                     };
                 }
                 else

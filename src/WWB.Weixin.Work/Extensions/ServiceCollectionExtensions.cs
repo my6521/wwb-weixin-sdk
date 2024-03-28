@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using System;
 using WWB.Weixin.Work;
 using WWB.Weixin.Work.Apis.Auth;
@@ -13,8 +14,16 @@ using WWB.Weixin.Work.ServerMessages;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    ///
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddWxWork(this IServiceCollection services)
         {
             services.AddSingleton<WxWorkFuncs>();
@@ -30,6 +39,13 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="setupAction"></param>
+        /// <returns></returns>
+        /// <exception cref="WxWorkException"></exception>
         public static IApplicationBuilder UseWxWork(this IApplicationBuilder app, Action<WxWorkFuncs> setupAction = null)
         {
             var cache = app.ApplicationServices.GetRequiredService<IDistributedCache>();
@@ -44,15 +60,57 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     funcs.GetWxWorkOptions = () =>
                     {
-                        var option = new WxWorkOptions();
-                        wechatConfig.Bind(option);
-                        return option;
+                        var options = new WxWorkOptions();
+                        wechatConfig.Bind(options);
+                        return options;
                     };
                 }
                 else
                 {
                     throw new WxWorkException("企业微信未配置！");
                 }
+            }
+            if (funcs.GetProviderToken == null)
+            {
+                funcs.GetProviderToken = (corpId) => cache.GetString($"WX::WORK::{corpId}");
+            }
+            if (funcs.GetSuiteToken == null)
+            {
+                funcs.GetSuiteToken = (suiteId) => cache.GetString($"WX::WORK::{suiteId}");
+            }
+            if (funcs.GetAccessToken == null)
+            {
+                funcs.GetAccessToken = (corpId, corpSecret) => cache.GetString($"WX::WORK::{corpId}#{corpSecret}");
+            }
+            if (funcs.CacheProviderToken == null)
+            {
+                funcs.CacheProviderToken = (corpId, token) =>
+                {
+                    cache.SetString($"WX::WORK::{corpId}", token, new DistributedCacheEntryOptions()
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(115)
+                    });
+                };
+            }
+            if (funcs.CacheSuiteToken == null)
+            {
+                funcs.CacheSuiteToken = (suiteId, token) =>
+                {
+                    cache.SetString($"WX::WORK::{suiteId}", token, new DistributedCacheEntryOptions()
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(115)
+                    });
+                };
+            }
+            if (funcs.CacheAccessToken == null)
+            {
+                funcs.CacheAccessToken = (corpId, corpSecret, token) =>
+                {
+                    cache.SetString($"WX::WORK::{corpId}#{corpSecret}", token, new DistributedCacheEntryOptions()
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(115)
+                    });
+                };
             }
 
             return app;

@@ -12,8 +12,9 @@ namespace WWB.Weixin.SDK
     {
         private readonly WxFuncs weChatFuncs;
         private readonly IServiceProvider serviceProvider;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="weChatFuncs"></param>
         /// <param name="serviceProvider"></param>
