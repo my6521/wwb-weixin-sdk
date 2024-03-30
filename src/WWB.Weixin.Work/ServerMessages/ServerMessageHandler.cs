@@ -90,6 +90,51 @@ namespace WWB.Weixin.Work.ServerMessages
                 var msgType = msgTypeElement.Value.Trim().ToLower();
                 if (msgType == "event")
                 {
+                    var evt = xmlElement.Element("Event").Value.Trim().ToLower();
+                    switch (evt)
+                    {
+                        case FromMessageTypes.change_contact:
+                            {
+                                var changeType = xmlElement.Element("ChangeType").Value.Trim().ToLower();
+                                switch (changeType)
+                                {
+                                    case FromMessageTypes.create_user:
+                                        await ExecuteHandler<FromCreateUserMessage>(decryptMsg, (request, options) => handler.OnCreateUserRequest(request, options));
+                                        break;
+
+                                    case FromMessageTypes.update_user:
+                                        await ExecuteHandler<FromUpdateUserMessage>(decryptMsg, (request, options) => handler.OnUpdateUserRequest(request, options));
+                                        break;
+
+                                    case FromMessageTypes.delete_user:
+                                        await ExecuteHandler<FromDeleteUserMessage>(decryptMsg, (request, options) => handler.OnDeleteUserRequest(request, options));
+                                        break;
+
+                                    case FromMessageTypes.create_party:
+                                        await ExecuteHandler<FromCreatePartyMessage>(decryptMsg, (request, options) => handler.OnCreatePartyRequest(request, options));
+                                        break;
+
+                                    case FromMessageTypes.update_party:
+                                        await ExecuteHandler<FromUpdatePartyMessage>(decryptMsg, (request, options) => handler.OnUpdatePartyRequest(request, options));
+                                        break;
+
+                                    case FromMessageTypes.delete_party:
+                                        await ExecuteHandler<FromDeletePartyMessage>(decryptMsg, (request, options) => handler.OnDeletePartyRequest(request, options));
+                                        break;
+
+                                    case FromMessageTypes.update_tag:
+                                        await ExecuteHandler<FromUpdateTagMessage>(decryptMsg, (request, options) => handler.OnUpdateTagRequest(request, options));
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
                 else
                 {

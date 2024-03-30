@@ -4,13 +4,13 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>disable</Nullable>
 	<PackageId>WWB.Weixin.Work</PackageId>
-	<Version>1.0.2</Version>
+	<Version>1.0.3</Version>
 	<Authors>my6521</Authors>
 	<Description>微信开发SDK</Description>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<RepositoryUrl>https://github.com/my6521/wwb-weixin-sdk</RepositoryUrl>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<PackageVersion>1.0.2</PackageVersion>
+	<PackageVersion>1.0.3</PackageVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 	<ItemGroup>

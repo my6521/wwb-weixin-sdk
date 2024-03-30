@@ -36,5 +36,40 @@ namespace WWB.Weixin.Work.ServerMessages
         {
             return Task.CompletedTask;
         }
+
+        public virtual Task OnCreateUserRequest(FromCreateUserMessage request, WxWorkOptions options)
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task OnUpdateUserRequest(FromUpdateUserMessage request, WxWorkOptions options)
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task OnDeleteUserRequest(FromDeleteUserMessage request, WxWorkOptions options)
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task OnCreatePartyRequest(FromCreatePartyMessage request, WxWorkOptions options)
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task OnUpdatePartyRequest(FromUpdatePartyMessage request, WxWorkOptions options)
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task OnDeletePartyRequest(FromDeletePartyMessage request, WxWorkOptions options)
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task OnUpdateTagRequest(FromUpdateTagMessage request, WxWorkOptions options)
+        {
+            return Task.CompletedTask;
+        }
     }
 }
