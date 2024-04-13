@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WWB.Weixin.Work.Apis.Message.Dtos
 {
@@ -14,13 +11,13 @@ namespace WWB.Weixin.Work.Apis.Message.Dtos
         }
 
         [JsonProperty("touser")]
-        public List<string> touser { get; set; }
+        public string touser { get; set; }
 
         [JsonProperty("toparty")]
-        public List<string> toparty { get; set; }
+        public string toparty { get; set; }
 
         [JsonProperty("totag")]
-        public List<string> totag { get; set; }
+        public string totag { get; set; }
 
         [JsonProperty("msgtype")]
         [JsonConverter(typeof(StringEnumConverter))]
