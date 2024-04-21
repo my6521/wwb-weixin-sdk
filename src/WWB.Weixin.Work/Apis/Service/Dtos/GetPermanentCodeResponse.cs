@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WWB.Weixin.Work.Models;
 
 namespace WWB.Weixin.Work.Apis.Service.Dtos
@@ -27,5 +23,18 @@ namespace WWB.Weixin.Work.Apis.Service.Dtos
         /// </summary>
         [JsonProperty("state")]
         public string State { get; set; }
+
+        public AuthInfo auth_info { get; set; }
+
+        public class AuthInfo
+        {
+            public List<AgentInfo> agent { get; set; }
+        }
+
+        public class AgentInfo
+        {
+            public int agentid { get; set; }
+            public string name { get; set; }
+        }
     }
 }

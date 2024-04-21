@@ -16,7 +16,7 @@ namespace WWB.Weixin.Work.Controllers
     /// </summary>
     [ApiController]
     [AllowAnonymous]
-    [Route("/wx/work")]
+    [Route("/WxWork")]
     public class WxWorkController : ControllerBase
     {
         private readonly ILogger<WxWorkController> _logger;

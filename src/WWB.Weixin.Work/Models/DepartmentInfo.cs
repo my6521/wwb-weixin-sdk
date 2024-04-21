@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace WWB.Weixin.Work.Models
 {
@@ -11,6 +9,6 @@ namespace WWB.Weixin.Work.Models
         public string name_en { get; set; }
         public List<string> department_leader { get; set; }
         public int parentid { get; set; }
-        public int order { get; set; }
+        public long order { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace WWB.Weixin.SDK.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("/wx/sdk")]
+    [Route("/WxSdk")]
     public class WxController : ControllerBase
     {
         private readonly ServerMessageHandler serverMessageHandler;
