@@ -13,26 +13,8 @@ namespace WWB.Weixin.SDK.Apis.User.Dtos
         [JsonProperty("openid")]
         public string OpenId { get; set; }
 
-        [JsonProperty("nickname")]
-        public string Nickname { get; set; }
-
-        [JsonProperty("sex")]
-        public int Sex { get; set; }
-
         [JsonProperty("language")]
         public string Language { get; set; }
-
-        [JsonProperty("city")]
-        public string City { get; set; }
-
-        [JsonProperty("province")]
-        public string Province { get; set; }
-
-        [JsonProperty("country")]
-        public string Country { get; set; }
-
-        [JsonProperty("headimgurl")]
-        public string Headimgurl { get; set; }
 
         [JsonProperty("subscribe_time")]
         public int SubscribeTime { get; set; }
