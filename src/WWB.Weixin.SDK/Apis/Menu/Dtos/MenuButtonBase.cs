@@ -1,6 +1,6 @@
 ﻿using JsonSubTypes;
 using Newtonsoft.Json;
-using System.Collections.Generic;
+using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 
 namespace WWB.Weixin.SDK.Apis.Menu
@@ -16,12 +16,12 @@ namespace WWB.Weixin.SDK.Apis.Menu
         [Required]
         [JsonProperty("name")]
         public string Name { get; set; }
-
     }
 
-    public abstract class SubMenuButtonBase: MenuButtonBase
+    public abstract class SubMenuButtonBase : MenuButtonBase
     {
         [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public MenuButtonTypes Type { get; set; }
     }
 }
