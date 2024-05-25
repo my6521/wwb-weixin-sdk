@@ -5,5 +5,6 @@
         public string position { get; set; }
         public string mobile { get; set; }
         public string avatar { get; set; }
+        public int status { get; set; }
     }
 }
