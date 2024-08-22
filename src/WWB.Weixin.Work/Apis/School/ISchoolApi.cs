@@ -20,5 +20,8 @@ namespace WWB.Weixin.Work.Apis.School
 
         [HttpGet("/cgi-bin/school/getuserinfo")]
         Task<GetSchoolUserInfoResponse> GetUserInfo([PathQuery] string access_token, [PathQuery] string code);
+
+        [HttpGet("/cgi-bin/externalcontact/message/send")]
+        Task<SendSchoolMessageResponse> SendMessage([PathQuery] string access_token, [JsonNetContent] SendSchoolMessageBase request);
     }
 }
