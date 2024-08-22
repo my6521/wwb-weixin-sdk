@@ -2,14 +2,12 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WWB.Weixin.Utility;
 using WWB.Weixin.Work.ServerMessages.Request;
-using WWB.Weixin.Work.ServerMessages.Response;
 
 namespace WWB.Weixin.Work.ServerMessages
 {
@@ -132,6 +130,16 @@ namespace WWB.Weixin.Work.ServerMessages
                             }
                             break;
 
+                        case FromMessageTypes.change_school_contact:
+                            {
+                                var changeType = xmlElement.Element("ChangeType").Value.Trim().ToLower();
+                                switch (changeType)
+                                {
+                                    default:
+                                        break;
+                                }
+                                break;
+                            }
                         default:
                             break;
                     }
