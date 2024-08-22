@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using System;
 using WWB.Weixin.Work.Apis.Auth;
 using WWB.Weixin.Work.Apis.Contact;
 using WWB.Weixin.Work.Apis.Message;
+using WWB.Weixin.Work.Apis.School;
 using WWB.Weixin.Work.Apis.Service;
 using WWB.Weixin.Work.Apis.Token;
 using WWB.Weixin.Work.ServerMessages;
@@ -31,6 +31,7 @@ namespace WWB.Weixin.Work
             services.AddHttpApi<IAuthApi>();
             services.AddHttpApi<IContactApi>();
             services.AddHttpApi<IMessageApi>();
+            services.AddHttpApi<ISchoolApi>();
 
             services.AddSingleton<ITokenManager, TokenManager>();
             services.AddSingleton<ServerMessageHandler>();
