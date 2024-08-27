@@ -1,6 +1,6 @@
 ﻿namespace WWB.Weixin.Work.Apis.School.Dtos
 {
-    public class GetSchoolStudentInfoResponse : ApiResultBase
+    public class GetSchoolParentOrStudentInfoResponse : ApiResultBase
     {
         public int user_type { get; set; }
 

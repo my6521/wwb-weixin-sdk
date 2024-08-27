@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>disable</Nullable>
 	<PackageId>WWB.Weixin.Work</PackageId>
-	<Version>1.1.3</Version>
+	<Version>1.1.4</Version>
 	<Authors>my6521</Authors>
 	<Description>微信开发SDK</Description>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
