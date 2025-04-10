@@ -19,7 +19,9 @@ namespace WWB.Weixin.Samples.Work
             builder.Services.AddSwaggerGen();
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddWxWork();
-            builder.Services.AddWxSdk();
+            builder.Services.AddWxSdk(option =>
+            {
+            });
             builder.Services.AddSingleton<IWxWorkEventHandler, WxWorkEventHandler>();
             builder.Services.AddSingleton<IWxSdkEventsHandler, WxSdkEventHandler>();
 

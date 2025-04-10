@@ -1,7 +1,7 @@
-﻿using WWB.Weixin.SDK.Apis.Token;
-using Microsoft.Extensions.DependencyInjection;
+﻿using FreeRedis;
 using System;
 using System.Threading.Tasks;
+using WWB.Weixin.SDK.Apis.Token;
 
 namespace WWB.Weixin.SDK
 {
@@ -10,18 +10,15 @@ namespace WWB.Weixin.SDK
     /// </summary>
     public class TokenManager : ITokenManager
     {
-        private readonly WxFuncs weChatFuncs;
-        private readonly IServiceProvider serviceProvider;
+        private readonly WxPublicAccountOption _options;
+        private readonly ITokenApi _tokenApi;
+        private readonly IRedisClient _redisClient;
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="weChatFuncs"></param>
-        /// <param name="serviceProvider"></param>
-        public TokenManager(WxFuncs weChatFuncs, IServiceProvider serviceProvider)
+        public TokenManager(IRedisClient redisClient, WxPublicAccountOption options, ITokenApi tokenApi)
         {
-            this.weChatFuncs = weChatFuncs;
-            this.serviceProvider = serviceProvider;
+            _redisClient = redisClient;
+            _options = options;
+            _tokenApi = tokenApi;
         }
 
         /// <summary>
@@ -30,16 +27,17 @@ namespace WWB.Weixin.SDK
         /// <returns></returns>
         public virtual async Task<string> GetAccessTokenAsync()
         {
-            WxPublicAccountOption options = weChatFuncs?.GetWeChatOptions();
-            string token = weChatFuncs?.GetAccessTokenByAppId(options?.AppId);
-            if (string.IsNullOrEmpty(token))
+            var key = "WX:" + _options.AppId;
+            if (_redisClient.Exists(key))
             {
-                ITokenApi tokenApi = serviceProvider.GetService<ITokenApi>();
-                TokenApiResult result = await tokenApi.GetAsync(options.AppId, options.AppSecret);
-                weChatFuncs?.CacheAccessToken(options.AppId, result.AccessToken);
-                return result.AccessToken;
+                return await _redisClient.GetAsync<string>(key);
             }
-            return token;
+
+            var result = await _tokenApi.GetAsync(_options.AppId, _options.AppSecret);
+            result.EnsureSuccess();
+            await _redisClient.SetAsync(key, result.AccessToken, TimeSpan.FromSeconds(result.Expires - 60));
+
+            return result.AccessToken;
         }
     }
 }

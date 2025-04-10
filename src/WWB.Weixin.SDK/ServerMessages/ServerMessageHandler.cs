@@ -15,15 +15,15 @@ namespace WWB.Weixin.SDK.ServerMessages
 {
     public class ServerMessageHandler
     {
-        private readonly WxFuncs wxFuncs;
         private readonly ILogger<ServerMessageHandler> logger;
         private readonly IServiceProvider serviceProvider;
+        private readonly WxPublicAccountOption _options;
 
-        public ServerMessageHandler(WxFuncs wxFuncs, ILogger<ServerMessageHandler> logger, IServiceProvider serviceProvider)
+        public ServerMessageHandler(ILogger<ServerMessageHandler> logger, IServiceProvider serviceProvider, WxPublicAccountOption options)
         {
-            this.wxFuncs = wxFuncs;
             this.logger = logger;
             this.serviceProvider = serviceProvider;
+            _options = options;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace WWB.Weixin.SDK.ServerMessages
         /// <returns>返回正确的签名</returns>
         public bool CheckSignature(string signature, string timestamp, string nonce)
         {
-            var token = wxFuncs.GetWeChatOptions()?.Token;
+            var token = _options.Token;
             if (token == null)
             {
                 throw new ArgumentNullException("Token");
