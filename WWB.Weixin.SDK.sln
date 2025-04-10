@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WWB.Weixin.Samples.Work", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WWB.Weixin.SDK", "src\WWB.Weixin.SDK\WWB.Weixin.SDK.csproj", "{149FBD20-DAB5-4631-873B-1E0E53945054}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WWB.Weixin.Utility", "src\WWB.Weixin.Utility\WWB.Weixin.Utility.csproj", "{B346C784-C23C-474D-9500-F8FA5F0D2150}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WWB.Weixin.Utility", "src\WWB.Weixin.Utility\WWB.Weixin.Utility.csproj", "{B346C784-C23C-474D-9500-F8FA5F0D2150}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{2BE38C48-9689-4F00-BBDE-C85BCAC7A150}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

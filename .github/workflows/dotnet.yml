@@ -12,26 +12,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+  
     - name: 建立.netcore环境
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.407
+
     - name: 安装依赖
       run: dotnet restore
+
     - name: 构建
-      run: dotnet build --configuration Release --no-restore
-    - name: 添加github仓库
       run: |
-        nuget sources add -name github -Source https://nuget.pkg.github.com/my6521/index.json -Username my6521 -Password ${{ secrets.GITHUBTOKEN }}
-    - name: 安装nuget 
-      uses: nuget/setup-nuget@v1
-      with:        
-        nuget-version: '5.x'
-    - name: 发布生成包到github和nuget
+        dotnet build ./src/WWB.Weixin.SDK/WWB.Weixin.SDK.csproj -c Release --no-restore
+        dotnet build ./src/WWB.Weixin.Utility/WWB.Weixin.Utility.csproj -c Release --no-restore
+
+    - name: 打包
       run: |
-        nuget push ./src/WWB.Weixin.Utility/bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGETKEY }}
-        nuget push ./src/WWB.Weixin.SDK/bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGETKEY }}
-        nuget push ./src/WWB.Weixin.Work/bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGETKEY }}
-        nuget push ./src/WWB.Weixin.Utility/bin/Release/*.nupkg -Source github -SkipDuplicate
-        nuget push ./src/WWB.Weixin.SDK/bin/Release/*.nupkg -Source github -SkipDuplicate
-        nuget push ./src/WWB.Weixin.Work/bin/Release/*.nupkg -Source github -SkipDuplicate
+        dotnet pack ./src/WWB.Weixin.SDK/WWB.Weixin.SDK.csproj -c Release
+        dotnet pack ./src/WWB.Weixin.Utility/WWB.Weixin.Utility.csproj -c Release
+
+    - name: 发布生成包到nuget
+      run: |
+        dotnet nuget push ./src/WWB.Weixin.SDK/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{ secrets.NUGETKEY }}
+        dotnet nuget push ./src/WWB.Weixin.Utility/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{ secrets.NUGETKEY }}
